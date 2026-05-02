@@ -1,40 +1,57 @@
-# JNI Demo Project
+# Lab23-JNI-AntiDebug
 
-Ce projet est une démonstration de l'utilisation de **JNI (Java Native Interface)** dans une application Android. Il illustre comment appeler du code C++ depuis Java, gérer les types de données, et optimiser les performances via l'enregistrement dynamique des méthodes natives.
+Ce projet est un laboratoire avancé sur l'utilisation de **JNI (Java Native Interface)** et le **Software Hardening** (durcissement logiciel) dans une application Android. Il démontre comment intégrer du code C++ natif pour des calculs intensifs et pour sécuriser l'application contre l'analyse dynamique (anti-debugging).
 
-## Fonctionnalités de Base
+🔗 **GitHub Repository** : [https://github.com/Sultan-zd/Lab23-JNI-AntiDebug.git](https://github.com/Sultan-zd/Lab23-JNI-AntiDebug.git)
 
-1.  **Hello JNI** : Un simple "Hello World" provenant du monde natif.
-2.  **Factorielle** :
-    *   Gestion des valeurs normales (ex: 10! = 3628800).
-    *   Gestion des erreurs pour les valeurs négatives (retourne -1).
-    *   Détection de dépassement de capacité (overflow) pour les grands nombres (retourne -2).
-3.  **Inversion de Chaîne** : Inverse une chaîne de caractères en C++, gère correctement les chaînes vides.
-4.  **Somme de Tableau** : Calcule la somme des éléments d'un tableau d'entiers en natif.
+## 🚀 Fonctionnalités Principales
 
-## Extensions du Laboratoire
+### 1. Couche Native Professionnelle
+*   **Gestionnaire Natif (Singleton)** : Utilisation d'une classe `NativeSecurityManager` en Java pour centraliser tous les appels JNI.
+*   **Enregistrement Dynamique (`RegisterNatives`)** : Les méthodes natives sont liées dynamiquement au démarrage (`JNI_OnLoad`). Cela évite les noms de fonctions prévisibles (`Java_com_package...`) et améliore la sécurité contre l'ingénierie inverse.
 
-### Extension A : Multiplication Matricielle
-Implémentation d'une multiplication de matrices (float) en C++. Démontre la manipulation de tableaux multidimensionnels via JNI.
+### 2. Sécurité et Anti-Débogage
+L'application analyse son environnement et renvoie un code d'état détaillé :
+*   **Code 0 (OK)** : Environnement sain.
+*   **Code 1 (Trace detected)** : Détection d'un débogueur via `ptrace`.
+*   **Code 2 (Suspicious Maps)** : Détection d'outils d'instrumentation (Frida, Xposed, Magisk) dans `/proc/self/maps`.
+*   **Code 3 (Multiple Threats)** : Plusieurs signaux d'alerte détectés.
 
-### Extension B : Détection d'Erreurs
-Vérifie si une chaîne contient des caractères interdits en utilisant les fonctions de recherche de la bibliothèque standard C++ (`std::string::find`).
+### 3. Fonctionnalités Métier & Tests JNI
+*   **Mathématiques** : Calcul de factorielle avec gestion d'erreur (négatif) et détection d'overflow (retourne -2 si > `INT_MAX`).
+*   **Manipulation de Strings** : Inversion de chaîne sécurisée (gère les chaînes vides).
+*   **Algèbre Linéaire** : Multiplication matricielle native (Float Array).
+*   **Benchmark** : Comparaison de performance entre Java et C++ (calcul de 1,000,000 de racines carrées).
 
-### Extension C : Benchmark Java vs C++
-Compare le temps d'exécution d'un calcul intensif (1 million d'itérations de calcul de racine carrée) entre Java et C++. Les résultats sont affichés en microsecondes.
+## 🛠 Structure du Projet
 
-### Extension D : Signature Dynamique (`RegisterNatives`)
-Utilisation de `RegisterNatives` dans `JNI_OnLoad` pour lier les méthodes Java aux fonctions C++.
-*   **Avantages** : Meilleure organisation du code, sécurité accrue (pas de noms de fonctions exportés par défaut), et légère amélioration des performances au premier appel.
+*   `app/src/main/java/.../NativeSecurityManager.java` : Singleton gérant la liaison native.
+*   `app/src/main/cpp/native-lib.cpp` : Implémentation C++ sécurisée avec `JNI_OnLoad`.
+*   `app/src/main/res/layout/activity_main.xml` : Interface avec bandeau de statut dynamique (Couleurs : Vert/Orange/Rouge).
 
-## Structure du Projet
+## 📊 Scénarios de Validation
 
-*   `app/src/main/java/com/example/jnidemo/MainActivity.java` : Interface utilisateur et appels JNI.
-*   `app/src/main/cpp/native-lib.cpp` : Implémentations natives en C++.
-*   `app/src/main/cpp/CMakeLists.txt` : Configuration de la compilation native.
+### Scénario 1 : Lancement Normal
+*   **Action** : Cliquer sur **Run** (Triangle vert).
+*   **Résultat** : Statut "ENVIRONNEMENT : SÉCURISÉ (OK)" en vert.
 
-## Comment compiler et exécuter
-1. Ouvrez le projet dans Android Studio.
-2. Assurez-vous que le NDK est installé.
-3. Synchronisez Gradle.
-4. Lancez l'application sur un émulateur ou un appareil physique.
+### Scénario 2 : Lancement en Debug
+*   **Action** : Cliquer sur **Debug** (Coccinelle).
+*   **Résultat** : Statut "ALERTE : DÉBOGUEUR DÉTECTÉ" en orange/rouge.
+
+### Scénario 3 : Analyse Logcat
+Filtrez les logs avec le tag : `NativeSecurity`
+```bash
+adb logcat -s NativeSecurity
+```
+Vous verrez les détails de l'analyse : `Anti-Debug: ptrace check failed` ou `Environment check: OK`.
+
+## 📚 Enseignements du Lab
+Ce laboratoire illustre les étapes clés du développement sécurisé :
+1. Séparer le code métier de la logique défensive.
+2. Ne pas bloquer brutalement l'utilisateur mais adapter le comportement.
+3. Utiliser les primitives système (`ptrace`, `maps`) pour un contrôle bas niveau.
+4. Optimiser l'interface JNI via l'enregistrement dynamique.
+
+---
+*Développé dans le cadre du Lab23 JNI Anti-Debug.*

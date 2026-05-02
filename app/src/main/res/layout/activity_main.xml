@@ -10,71 +10,81 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Statut de sécurité"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="12dp"
+            android:background="#F5F5F5"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
             android:id="@+id/tvHello"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello JNI"
-            android:textSize="18sp"
-            android:paddingBottom="8dp"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+            android:paddingBottom="8dp" />
 
         <TextView
             android:id="@+id/tvFact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Factoriel"
             android:paddingBottom="8dp" />
 
         <TextView
             android:id="@+id/tvReverse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reverse String"
             android:paddingBottom="8dp" />
 
         <TextView
             android:id="@+id/tvArray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Somme tableau"
             android:paddingBottom="16dp" />
 
-        <!-- Extensions -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDDDD"
+            android:layout_marginBottom="16dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Extensions du Labo"
-            android:textSize="18sp"
+            android:text="Extensions Professionnelles"
             android:textStyle="bold"
+            android:textSize="16sp"
             android:paddingBottom="8dp" />
 
         <TextView
             android:id="@+id/tvMatrix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Extension A: Matrix"
             android:paddingBottom="8dp" />
 
         <TextView
             android:id="@+id/tvForbidden"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Extension B: Forbidden Chars"
             android:paddingBottom="8dp" />
 
         <TextView
             android:id="@+id/tvBenchmark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Extension C: Benchmark"
             android:paddingBottom="8dp" />
 
         <TextView
-            android:id="@+id/tvRegisterNatives"
+            android:id="@+id/tvDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Extension D: RegisterNatives Status"
-            android:paddingBottom="8dp" />
+            android:textSize="12sp"
+            android:textColor="#777777"
+            android:text="Note: L'enregistrement dynamique RegisterNatives est actif." />
 
     </LinearLayout>
 </ScrollView>
