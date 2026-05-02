@@ -2,9 +2,9 @@
 
 Ce projet est un laboratoire avancé sur l'utilisation de **JNI (Java Native Interface)** et le **Software Hardening** (durcissement logiciel) dans une application Android. Il démontre comment intégrer du code C++ natif pour des calculs intensifs et pour sécuriser l'application contre l'analyse dynamique (anti-debugging).
 
-🔗 **GitHub Repository** : [https://github.com/Sultan-zd/Lab23-JNI-AntiDebug.git](https://github.com/Sultan-zd/Lab23-JNI-AntiDebug.git)
+**GitHub Repository** : [https://github.com/Sultan-zd/Lab23-JNI-AntiDebug.git](https://github.com/Sultan-zd/Lab23-JNI-AntiDebug.git)
 
-## 🚀 Fonctionnalités Principales
+## Fonctionnalités Principales
 
 ### 1. Couche Native Professionnelle
 *   **Gestionnaire Natif (Singleton)** : Utilisation d'une classe `NativeSecurityManager` en Java pour centraliser tous les appels JNI.
@@ -23,13 +23,13 @@ L'application analyse son environnement et renvoie un code d'état détaillé :
 *   **Algèbre Linéaire** : Multiplication matricielle native (Float Array).
 *   **Benchmark** : Comparaison de performance entre Java et C++ (calcul de 1,000,000 de racines carrées).
 
-## 🛠 Structure du Projet
+## Structure du Projet
 
 *   `app/src/main/java/.../NativeSecurityManager.java` : Singleton gérant la liaison native.
 *   `app/src/main/cpp/native-lib.cpp` : Implémentation C++ sécurisée avec `JNI_OnLoad`.
 *   `app/src/main/res/layout/activity_main.xml` : Interface avec bandeau de statut dynamique (Couleurs : Vert/Orange/Rouge).
 
-## 📊 Scénarios de Validation
+## Scénarios de Validation
 
 ### Scénario 1 : Lancement Normal
 *   **Action** : Cliquer sur **Run** (Triangle vert).
@@ -46,7 +46,7 @@ adb logcat -s NativeSecurity
 ```
 Vous verrez les détails de l'analyse : `Anti-Debug: ptrace check failed` ou `Environment check: OK`.
 
-## 📚 Enseignements du Lab
+## Enseignements du Lab
 Ce laboratoire illustre les étapes clés du développement sécurisé :
 1. Séparer le code métier de la logique défensive.
 2. Ne pas bloquer brutalement l'utilisateur mais adapter le comportement.
